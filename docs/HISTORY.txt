@@ -1,0 +1,31 @@
+Changelog
+=========
+
+0.2 (2012-05-06)
+----------------
+
+- Removed unused relative url adapter/resolver
+
+- The absolute url resolve is now registered as a nameless adapter.
+
+- Using now the latest interfaces from ``cromlech.browser``
+
+
+0.1 (2012-01-19)
+----------------
+
+- Updated for the latest `cromlech` packages.
+
+- Added 'lineage' computing functions, for locatable items.
+
+
+0.1a2 (2011-06-24)
+------------------
+
+- Removed silly non-existing context handling.
+
+
+0.1a1 (2011-05-09)
+------------------
+
+- Initial release
