@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import urllib
 from zope.location import ILocation
 from zope.interface import Interface, implementer
 from cromlech.browser import IPublicationRoot, IRequest, IURL
+
+try:
+    from urllib import quote
+except ImportError:
+    from urllib.parse import quote
+
 
 _safe = '@+'  # Characters that we don't want to have quoted
 
@@ -37,7 +42,7 @@ def resolve_url(context, request):
         raise KeyError(context, '__name__')
 
     if name:
-        url += '/' + urllib.quote(name.encode('utf-8'), _safe)
+        url += '/' + quote(name.encode('utf-8'), _safe)
 
     return url
 
