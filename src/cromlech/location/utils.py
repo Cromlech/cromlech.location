@@ -24,3 +24,10 @@ def lineage_chain(item):
                 'An infinite loop as been detected')
         chain.append(node)
     return chain
+
+
+def find_parent(item, find):
+    for node in lineage(item):
+        if find.providedBy(node):
+            return node
+    raise LookupError("Couldn't find a suitable parent.")
