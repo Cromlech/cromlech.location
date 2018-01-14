@@ -1,28 +1,30 @@
-
+# -*- coding: utf-8 -*-
 """dolmen.location tests
 """
 import pytest
+from crom import testing
+
+import crom
 import cromlech.location
-import grokcore.component
 from cromlech.browser import IPublicationRoot
-from cromlech.browser.testing import TestRequest
+from cromlech.browser.testing import TestRequest as Request
 from zope.interface import directlyProvides
 from zope.location import Location
-from zope.testing.cleanup import cleanUp
 
 
 def setup_module(module):
-    grokcore.component.testing.grok('cromlech.location')
+    testing.setup()
+    crom.configure(cromlech.location)
 
 
 def teardown_module(module):
-    cleanUp()
+    testing.teardown()
 
 
 def test_locatability():
     """For a simple scenario : /obj:grandfather/obj:father/obj:me
     """
-    request = TestRequest(path='/somepath')
+    request = Request(path='/somepath')
     grandfather = Location()
     father = Location()
     me = Location()
@@ -40,7 +42,7 @@ def test_locatability():
         """
         cromlech.location.get_absolute_url(me, request)
 
-    assert str(e.value.message) == (
+    assert str(e.value) == (
         "The path of the application root could not be resolved.")
 
     # We define a publication root.
@@ -87,6 +89,6 @@ def test_lineage_infinite_loop():
     
     with pytest.raises(LookupError) as e:
         cromlech.location.lineage_chain(juliana)
-    assert str(e.value.message) == (
+    assert str(e.value) == (
         'The lineage chain could not be completed. ' +
         'An infinite loop as been detected')
